@@ -1,0 +1,44 @@
+{
+    "name": "shopwwi/webman-scout",
+    "description": "webman Scout provides a driver based solution to searching your Eloquent models.",
+    "keywords": ["algolia","meilisearch","elasticsearch","xunsearch", "webman", "search"],
+    "license": "MIT",
+    "support": {
+        "issues": "https://github.com/shopwwi/webman-scout/issues",
+        "source": "https://github.com/shopwwi/webman-scout"
+    },
+    "authors": [
+        {
+            "name": "Tycoon Song",
+            "email": "8988354@qq.com"
+        }
+    ],
+    "require": {
+        "php": "^7.3|^8.0",
+        "illuminate/bus": "^8.0|^9.0",
+        "illuminate/contracts": "^8.0|^9.0",
+        "illuminate/database": "^8.0|^9.0",
+        "illuminate/http": "^8.0|^9.0",
+        "illuminate/pagination": "^8.0|^9.0",
+        "illuminate/queue": "^8.0|^9.0",
+        "illuminate/support": "^8.0|^9.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Shopwwi\\WebmanScout\\": "src/"
+        },
+        "files": [
+            "helpers.php"
+        ]
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.x-dev"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
