@@ -7,9 +7,9 @@
  *-------------------------------------------------------------------------o*
  * @license    http://www.shopwwi.com        s h o p w w i . c o m
  *-------------------------------------------------------------------------p*
- * @link       http://www.shopwwi.com by 象讯科技 phcent.com
+ * @link       http://www.shopwwi.com by 无锡豚豹科技
  *-------------------------------------------------------------------------w*
- * @since      shopwwi象讯·PHP商城系统Pro
+ * @since      shopwwi豚豹·PHP商城系统
  *-------------------------------------------------------------------------w*
  * @author      TycoonSong 8988354@qq.com
  *-------------------------------------------------------------------------i*
@@ -162,13 +162,25 @@ class EngineManager extends Manager
      */
     public function createElasticsearchDriver()
     {
-
+        $config = config('plugin.shopwwi.scout.app.elasticsearch');
         $this->ensureElasticSearchClientIsInstalled();
-        $client = ClientBuilder::create()
-            ->setHosts(config('plugin.shopwwi.scout.app.elasticsearch.hosts'))
-            ->build();
+        $clientBuilder = ClientBuilder::create()->setHosts($config['hosts']);
+
+        if(!empty($config['auth'])){
+            if(!empty($config['auth']['user']) && $config['auth']['user'] !== null &&
+                !empty($config['auth']['pass']) && $config['auth']['pass'] !== null
+            ){
+                $clientBuilder->setBasicAuthentication($config['auth']['user'], $config['auth']['pass']);
+            }
+            if (!empty($config['auth']['api_key']) && $config['auth']['api_key'] !== null) {
+                $clientBuilder->setApiKey( $config['auth']['api_key'],$config['auth']['api_id'] ?? null);
+            }
+            if (!empty($config['auth']['cloud_id']) && $config['auth']['cloud_id'] !== null) {
+                $clientBuilder->setElasticCloudId( $config['auth']['cloud_id']);
+            }
+        }
         return new ElasticSearchEngine(
-            $client,
+            $clientBuilder->build(),
             config('plugin.shopwwi.scout.app.soft_delete', false)
         );
     }

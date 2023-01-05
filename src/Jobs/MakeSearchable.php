@@ -7,9 +7,9 @@
  *-------------------------------------------------------------------------o*
  * @license    http://www.shopwwi.com        s h o p w w i . c o m
  *-------------------------------------------------------------------------p*
- * @link       http://www.shopwwi.com by 象讯科技 phcent.com
+ * @link       http://www.shopwwi.com by 无锡豚豹科技
  *-------------------------------------------------------------------------w*
- * @since      shopwwi象讯·PHP商城系统Pro
+ * @since      shopwwi豚豹·PHP商城系统
  *-------------------------------------------------------------------------w*
  * @author      TycoonSong 8988354@qq.com
  *-------------------------------------------------------------------------i*
@@ -29,6 +29,7 @@ class MakeSearchable implements Consumer
     // 消费
     public function consume($models)
     {
+        $models = unserialize($models);
         if (count($models) === 0) {
             return;
         }

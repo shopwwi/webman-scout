@@ -7,9 +7,9 @@
  *-------------------------------------------------------------------------c*
  * @license    http://www.shopwwi.com        s h o p w w i . c o m
  *-------------------------------------------------------------------------e*
- * @link       http://www.shopwwi.com by 象讯科技 phcent.com
+ * @link       http://www.shopwwi.com by 无锡豚豹科技
  *-------------------------------------------------------------------------n*
- * @since      shopwwi象讯·PHP商城系统Pro
+ * @since      shopwwi豚豹·PHP商城系统
  *-------------------------------------------------------------------------t*
  */
 
@@ -162,16 +162,16 @@ return [
 
     'elasticsearch' => [
         'hosts' => [
-            'http://115.159.153.41:9200',
-            // [
-            //     'host'   => env('ELASTICSEARCH_HOST', 'localhost'),
-            //     'port'   => env('ELASTICSEARCH_PORT', '9200'),
-            //     'scheme' => env('ELASTICSEARCH_SCHEME', 'https'),
-            //     'path'   => env('ELASTICSEARCH_PATH', '/elastic'),
-            //     'user'   => env('ELASTICSEARCH_USER', 'username'),
-            //     'pass'   => env('ELASTICSEARCH_PASS', 'password'),
-            // ]
+            'http://127.0.0.1:9200'
         ],
+        'auth' =>[
+            'user'   =>  null,
+            'pass'   =>  null,
+            'api_id' => null,
+            'api_key' => null,
+            'cloud_id' => null
+        ]
+        // index为设定的index名称 如果你的index名称为goods 则下面的index应写成goods
 //        'index' => [
 //            'setting' => [],
 //            'aliases' => [],

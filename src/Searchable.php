@@ -7,9 +7,9 @@
  *-------------------------------------------------------------------------o*
  * @license    http://www.shopwwi.com        s h o p w w i . c o m
  *-------------------------------------------------------------------------p*
- * @link       http://www.shopwwi.com by 象讯科技 phcent.com
+ * @link       http://www.shopwwi.com by 无锡豚豹科技
  *-------------------------------------------------------------------------w*
- * @since      shopwwi象讯·PHP商城系统Pro
+ * @since      shopwwi豚豹·PHP商城系统
  *-------------------------------------------------------------------------w*
  * @author      TycoonSong 8988354@qq.com
  *-------------------------------------------------------------------------i*
@@ -19,6 +19,7 @@ namespace Shopwwi\WebmanScout;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Collection as BaseCollection;
 use Webman\RedisQueue\Client as QueueClient;
+use Webman\RedisQueue\Redis as QueueRedis;
 trait Searchable
 {
     /**
@@ -73,8 +74,8 @@ trait Searchable
             return $models->first()->searchableUsing()->update($models);
         }
 
-        if (class_exists(QueueClient::class)) {
-            QueueClient::send('scout_make', $models);
+        if (class_exists(QueueRedis::class)) {
+            QueueRedis::send('scout_make', serialize($models));
         }
     }
 
@@ -93,8 +94,8 @@ trait Searchable
         if (! config('plugin.shopwwi.scout.app.queue')) {
             return $models->first()->searchableUsing()->delete($models);
         }
-        if (class_exists(QueueClient::class)) {
-            QueueClient::send('scout_remove', $models);
+        if (class_exists(QueueRedis::class)) {
+            QueueRedis::send('scout_remove', serialize($models));
         }
     }
 
@@ -331,7 +332,7 @@ trait Searchable
      */
     public function syncWithSearchUsing()
     {
-        return config('plugin.shopwwi.scout.app.queue.connection') ?: config('queue.default');
+        return 'default';
     }
 
     /**
@@ -341,7 +342,7 @@ trait Searchable
      */
     public function syncWithSearchUsingQueue()
     {
-        return config('plugin.shopwwi.scout.app.queue.queue');
+        return config('plugin.shopwwi.scout.app.queue');
     }
 
     /**
