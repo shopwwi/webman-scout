@@ -67,13 +67,13 @@ php webman scout:delete-index 'goods'
 - 初始数据model导入 --chunk导入批次数量 不宜设置过大哦
 
 ```
-php webman scout:import 'app/model/Goods' --chunk=200
+php webman scout:import 'app\model\Goods' --chunk=200
 ```
 
 - 重置清空模型数据 
 
 ```
-php webman scout:flush 'app/model/Goods'
+php webman scout:flush 'app\model\Goods'
 ```
 
 ### 配置模型索引
