@@ -64,13 +64,12 @@ class ElasticSearchEngine extends Engine
         $params = [
             'index' => $name,
         ];
-        if(empty($options) && config('plugin.shopwwi.scout.app.elasticsearch.'.$name)) {
 
-            if (isset($options['settings'])) {
-                $params['body']['settings'] = $options['settings'];
+        if(empty($options) && $config = config('plugin.shopwwi.scout.app.elasticsearch.'.$name)) {
+            if (isset($config['settings'])) {
+                $params['body']['settings'] = $config['settings'];
             }
             $this->elasticsearch->indices()->create($params);
-
             if (isset($config['aliases'])) {
                 foreach ($config['aliases'] as $alias) {
                     $this->elasticsearch->indices()->updateAliases([
@@ -99,9 +98,8 @@ class ElasticSearchEngine extends Engine
                 }
             }
         }else{
-            $this->elasticsearch->indices()->create($params);
+            $this->elasticsearch->indices()->create(array_merge($params,$options));
         }
-
     }
 
     public function deleteIndex($name)
